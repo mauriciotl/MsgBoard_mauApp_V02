@@ -1,0 +1,62 @@
+# Maven directories
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA files
+/.idea/
+/*.iml
+
+# Eclipse files
+/.classpath
+/.project
+/.settings/
+
+# NetBeans files
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nbm/
+
+# MacOS specific files
+.DS_Store
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Operating system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# JetBrains IDE index files
+/.idea/
+*.iws
+*.ipr
+*.iml
+
+# Compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# Application-specific
+/config.properties
+/secrets/
+*.key
+*.pem
+
+# Generated files
+*.class
+*.o
+*.a
+*.so
+*.exe
+
+# Environment files
+.env
+*.env
