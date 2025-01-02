@@ -10,6 +10,12 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Date;
 
+
+/*
+IMPORTANT NOTE. THIS CLASS IS NOT BEING USED, CHATGPT CREATED IT, IT'S MORE AN EXAMPLE
+OF HOW A CONTROLLER/SERVICE CLASS WOULD LOOK LIKE. Currently, the service class MessageStorage
+works as that, the service class and the DispatcherServlet is the controller.
+ */
 public class MessageController {
 
     private MessageStorage getMessageStorage(HttpServletRequest request) {

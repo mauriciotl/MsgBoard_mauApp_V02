@@ -9,7 +9,7 @@ public class IdGenerator {
      * Generates the next ID.
      * @return the next unique ID starting from 1
      */
-    public static int generateId() {
+    public static synchronized int generateId() {
         return currentId++;
     }
 
