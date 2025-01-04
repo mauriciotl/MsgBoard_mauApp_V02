@@ -9,6 +9,7 @@
 <h1>Message Board</h1>
 
 <form action="${pageContext.request.contextPath}/dispatchServlet" method="POST">
+    <h2>${user.name}</h2>
     <input type="text" name="name" placeholder="Message Name" required><br>
     <textarea name="description" placeholder="Message Description" required></textarea><br>
     <button type="submit" name="action" value="addMessage">Post Message</button>

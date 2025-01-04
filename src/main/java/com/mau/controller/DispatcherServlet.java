@@ -1,17 +1,21 @@
 package com.mau.controller;
 
+import com.mau.model.User;
 import com.mau.service.MessageStorage;
 import com.mau.model.Message;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
 
+@WebServlet("/dispatchServlet") // Servlet mapping
 public class DispatcherServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,6 +33,16 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false); // Get existing session or null
+        if (session == null || session.getAttribute("user") == null) {
+            // User not logged in
+            response.sendRedirect(request.getContextPath() + "/login"); // Forward to dispatch servlet
+            return; // Important: Stop further processing
+        }
+
+
+
         MessageStorage messageStorage = (MessageStorage) getServletContext().getAttribute(MESSAGE_STORAGE);
 
         // Retrieve all messages and set them as a request attribute
@@ -44,17 +58,27 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false); // Get existing session or null
+        if (session == null || session.getAttribute("user") == null) {
+            // User not logged in
+            response.sendRedirect(request.getContextPath() + "/login"); // Forward to dispatch servlet
+            return; // Important: Stop further processing
+        }
+
+
         String action = request.getParameter("action");
         MessageStorage messageStorage = (MessageStorage) getServletContext().getAttribute(MESSAGE_STORAGE);
 
         if ("addMessage".equals(action)) {
             String name = request.getParameter("name");
             String description = request.getParameter("description");
-            String user = request.getRemoteAddr(); // Use IP address as user identifier
+//            String user = request.getRemoteAddr(); // Use IP address as user identifier
+            User user = (User) session.getAttribute("user");
             int id = com.mau.utils.IdGenerator.generateId();
 
             // Create and store the new message
-            Message newMessage = new Message(id, user, name, description, new java.util.Date());
+            Message newMessage = new Message(id, user.getName(), name, description, new java.util.Date());
             messageStorage.addMessage(newMessage);
 
             response.sendRedirect(request.getContextPath() + "/dispatchServlet");

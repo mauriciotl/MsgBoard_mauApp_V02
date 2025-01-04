@@ -8,16 +8,16 @@
 
     <welcome-file-list>
 <!--        <welcome-file>jsp/home.jsp</welcome-file>-->
-        <welcome-file>dispatchServlet</welcome-file>
+        <welcome-file>login</welcome-file>
     </welcome-file-list>
 
-    <servlet>
-        <servlet-name>DispatcherServlet</servlet-name>
-        <servlet-class>com.mau.controller.DispatcherServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DispatcherServlet</servlet-name>
-        <url-pattern>/dispatchServlet</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>DispatcherServlet</servlet-name>-->
+<!--        <servlet-class>com.mau.controller.DispatcherServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>DispatcherServlet</servlet-name>-->
+<!--        <url-pattern>/dispatchServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
 
 </web-app>
