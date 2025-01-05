@@ -34,12 +34,12 @@ public class DispatcherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false); // Get existing session or null
-        if (session == null || session.getAttribute("user") == null) {
-            // User not logged in
-            response.sendRedirect(request.getContextPath() + "/login"); // Forward to dispatch servlet
-            return; // Important: Stop further processing
-        }
+//        HttpSession session = request.getSession(false); // Get existing session or null
+//        if (session == null || session.getAttribute("user") == null) {
+//            // User not logged in
+//            response.sendRedirect(request.getContextPath() + "/login"); // Forward to dispatch servlet
+//            return; // Important: Stop further processing
+//        }
 
 
 
@@ -51,6 +51,9 @@ public class DispatcherServlet extends HttpServlet {
         //Reverse the Message list.
         request.setAttribute("messages", this.reverseMessages(messageStorage));
 
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
         // Forward to the JSP for rendering
         request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
     }
@@ -60,11 +63,12 @@ public class DispatcherServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false); // Get existing session or null
-        if (session == null || session.getAttribute("user") == null) {
-            // User not logged in
-            response.sendRedirect(request.getContextPath() + "/login"); // Forward to dispatch servlet
-            return; // Important: Stop further processing
-        }
+
+//        if (session == null || session.getAttribute("user") == null) {
+//            // User not logged in
+//            response.sendRedirect(request.getContextPath() + "/login"); // Forward to dispatch servlet
+//            return; // Important: Stop further processing
+//        }
 
 
         String action = request.getParameter("action");
@@ -80,6 +84,9 @@ public class DispatcherServlet extends HttpServlet {
             // Create and store the new message
             Message newMessage = new Message(id, user.getName(), name, description, new java.util.Date());
             messageStorage.addMessage(newMessage);
+
+            response.setContentType("text/html; charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
 
             response.sendRedirect(request.getContextPath() + "/dispatchServlet");
         } else if ("deleteMessage".equals(action)) {
