@@ -1,11 +1,16 @@
 package com.mau.service;
 
 import com.mau.model.Message;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessageStorage {
+
+    // Logger for the class
+    private static final Logger logger = LogManager.getLogger(MessageStorage.class);
 
     // Instance variable to store messages
     private List<Message> listMessages;
@@ -13,14 +18,17 @@ public class MessageStorage {
     // Constructor with a specified List type
     public MessageStorage(List<Message> listMessages) {
         if (listMessages == null) {
+            logger.error("List implementation cannot be null");
             throw new IllegalArgumentException("List implementation cannot be null");
         }
         this.listMessages = listMessages;
+        logger.info("MessageStorage initialized with a custom list");
     }
 
     // Default constructor uses ArrayList
     public MessageStorage() {
         this(new ArrayList<>());
+        logger.info("MessageStorage initialized with default ArrayList");
     }
 
     /**
@@ -28,7 +36,12 @@ public class MessageStorage {
      * @param message the Message object to add
      */
     public void addMessage(Message message) {
+        if (message == null) {
+            logger.warn("Attempted to add a null message");
+            return;
+        }
         listMessages.add(message);
+        logger.debug("Message added: {}", message);
     }
 
     /**
@@ -37,11 +50,14 @@ public class MessageStorage {
      * @return the Message object, or null if not found
      */
     public Message getMessageById(int id) {
+        logger.debug("Retrieving message with ID: {}", id);
         for (Message message : listMessages) {
             if (message.getId() == id) {
+                logger.info("Message found: {}", message);
                 return message;
             }
         }
+        logger.warn("Message with ID {} not found", id);
         return null;
     }
 
@@ -52,12 +68,19 @@ public class MessageStorage {
      * @return true if the update was successful, false otherwise
      */
     public boolean updateMessage(int id, Message newMessage) {
+        if (newMessage == null) {
+            logger.warn("Attempted to update a message with null");
+            return false;
+        }
         for (int i = 0; i < listMessages.size(); i++) {
             if (listMessages.get(i).getId() == id) {
+                logger.debug("Updating message with ID: {}", id);
                 listMessages.set(i, newMessage);
+                logger.info("Message updated: {}", newMessage);
                 return true;
             }
         }
+        logger.warn("Message with ID {} not found for update", id);
         return false;
     }
 
@@ -67,7 +90,14 @@ public class MessageStorage {
      * @return true if the deletion was successful, false otherwise
      */
     public boolean deleteMessage(int id) {
-        return listMessages.removeIf(message -> message.getId() == id);
+        logger.debug("Attempting to delete message with ID: {}", id);
+        boolean result = listMessages.removeIf(message -> message.getId() == id);
+        if (result) {
+            logger.info("Message with ID {} deleted successfully", id);
+        } else {
+            logger.warn("Message with ID {} not found for deletion", id);
+        }
+        return result;
     }
 
     /**
@@ -75,6 +105,7 @@ public class MessageStorage {
      * @return a list of all messages
      */
     public List<Message> getAllMessages() {
+        logger.debug("Retrieving all messages");
         return new ArrayList<>(listMessages);
     }
 
@@ -82,6 +113,7 @@ public class MessageStorage {
      * Clears all messages from the storage.
      */
     public void clearMessages() {
+        logger.info("Clearing all messages");
         listMessages.clear();
     }
 
@@ -90,6 +122,8 @@ public class MessageStorage {
      * @return the total count of messages
      */
     public int countMessages() {
-        return listMessages.size();
+        int count = listMessages.size();
+        logger.debug("Counted {} messages in storage", count);
+        return count;
     }
 }
