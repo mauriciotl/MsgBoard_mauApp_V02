@@ -13,7 +13,7 @@ public class UserStorage {
     // Static initialization block to populate initial users
     static List<User> initialUsers = new ArrayList<>();
     static {
-        initialUsers.add(new User(1, "Alice", "password1"));
+        initialUsers.add(new User(1, "Aliceº", "password1"));
         initialUsers.add(new User(2, "Bob", "password2"));
         initialUsers.add(new User(3, "Charlie", "password3"));
         initialUsers.add(new User(4, "David", "password4"));

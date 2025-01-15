@@ -34,14 +34,8 @@ public class DispatcherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-//        HttpSession session = request.getSession(false); // Get existing session or null
-//        if (session == null || session.getAttribute("user") == null) {
-//            // User not logged in
-//            response.sendRedirect(request.getContextPath() + "/login"); // Forward to dispatch servlet
-//            return; // Important: Stop further processing
-//        }
-
-
+        // To print the working directory.
+        System.out.println("==== Working directory: " + System.getProperty("user.dir"));
 
         MessageStorage messageStorage = (MessageStorage) getServletContext().getAttribute(MESSAGE_STORAGE);
 
@@ -63,13 +57,6 @@ public class DispatcherServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false); // Get existing session or null
-
-//        if (session == null || session.getAttribute("user") == null) {
-//            // User not logged in
-//            response.sendRedirect(request.getContextPath() + "/login"); // Forward to dispatch servlet
-//            return; // Important: Stop further processing
-//        }
-
 
         String action = request.getParameter("action");
         MessageStorage messageStorage = (MessageStorage) getServletContext().getAttribute(MESSAGE_STORAGE);
